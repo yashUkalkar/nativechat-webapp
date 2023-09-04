@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply font-Montserrat text-dark-blue;
+  }
+
+  ::selection {
+    @apply bg-pink text-white;
+  }
+
+  /** SCROLLBAR STYLES */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-pink rounded-lg p-1;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white bg-opacity-70 rounded-lg;
+  }
+  * {
+    scrollbar-color: rgba(255, 255, 255, 0.8) #cc1d5e;
+    scrollbar-width: thin;
+  }
+}

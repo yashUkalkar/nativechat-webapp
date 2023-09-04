@@ -1,0 +1,127 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "NativeChat backend",
+    "dateExported": "2023-09-04T17:49:49.492Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-09-04T17:24:38.026Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "5df235ed-fe07-4141-b0c0-c87f99198def",
+            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "containerId": "",
+            "name": "Base GET to check response",
+            "url": "/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-09-04T16:12:59.621Z",
+            "modified": "2023-09-04T17:48:35.608Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0e67f4bf-b2c0-4e0b-8f94-33f89431eb93",
+            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
+            "name": "Sign in request",
+            "url": "/auth/signin",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-09-04T16:19:07.886Z",
+            "modified": "2023-09-04T17:47:43.855Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"sampleuser\",\n  \"password\": \"samplepass\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "93bd8868-f19c-4d93-8f0d-028608ffab0d",
+            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
+            "name": "Refresh access token",
+            "url": "/auth/refresh",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-09-04T16:49:30.179Z",
+            "modified": "2023-09-04T17:48:49.944Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0NTk0NiwiZXhwIjoxNjkzOTMyMzQ2fQ.0GbK3zjVj1PwlRfcIWlvsHeZH4ourr0ehhJditoz5Bg",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0NTk0NiwiZXhwIjoxNjkzODQ1OTk2fQ.gJGcZfQtDRRqMCWaMCh7DLYeA1BF4B9_tyd7jDaTkdo"
+            },
+            "tests": []
+        },
+        {
+            "_id": "9261d1c6-5574-4459-82a9-9be7cbfab61d",
+            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
+            "name": "Sign out",
+            "url": "/auth/signout",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-09-04T17:36:36.794Z",
+            "modified": "2023-09-04T17:49:01.538Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0ODg0OSwiZXhwIjoxNjkzOTM1MjQ5fQ.F0lUP-PnEtslNylpkISCufRzuoVDg_-wOOVa4Gq1P4Q"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b0a44b3c-89a3-4bd3-ba8c-2f9edc6194b3",
+            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
+            "name": "Sign up request",
+            "url": "/auth/signup",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-09-04T17:37:59.879Z",
+            "modified": "2023-09-04T17:49:24.890Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"sampleuser\",\n  \"password\": \"samplepass\",\n  \"confirmPassword\": \"samplepass\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:6001"
+        }
+    }
+}
