@@ -2,18 +2,18 @@
 
 ### Table of contents:
 
-1. [Project overview](#⭐-about)
-2. [Technologies used](#💻-tools-and-tech-used)
-3. [Installation and quickstart usage instructions](#⚡-quickstart)
-4. [Project walkthrough](#🎥-project-walkthrough)
+1. [Project overview](#star-about)
+2. [Technologies used](#computer-tools-and-tech-used)
+3. [Installation and quickstart usage instructions](#zap-quickstart)
+4. [Project walkthrough](#movie_camera-project-walkthrough)
 
-## ⭐ About
+## :star: About
 
 NativeChat is a web chat application which can break the translation barrier for you to focus on the conversation at hand🙂.
 
 <img src="./frontend/public/favicon.png" alt="App Logo">
 
-### Features -
+### Features :sparkler: -
 
 - Authentication **(username, password)**
 - Basic chat functionality **_(to be implemented)_**
@@ -23,27 +23,27 @@ NativeChat is a web chat application which can break the translation barrier for
 
 <a href="#" style="color:#cc1d5e">Go to top 👆🏻</a>
 
-## 💻 Tools and Tech used
+## :computer: Tools and Tech used
 
-<img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png"  alt="Typescript" title="Typescript" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png" alt="PostgreSQL" title="PostgreSQL" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/183859966-a3462d8d-1bc7-4880-b353-e2cbed900ed6.png" alt="ExpressJS" title="ExpressJS" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png" alt="NodeJS" title="NodeJS" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png" alt="TailwindCSS" title="TailwindCSS" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/192158956-48192682-23d5-4bfc-9dfb-6511ade346bc.png" alt="Sass" title="Sass" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="REST guidelines" title="REST guidelines" width="60px" style="margin:7px">
-<img src="https://github.com/marwin1991/profile-technology-icons/assets/62091613/b40892ef-efb8-4b0e-a6b5-d1cfc2f3fc35" alt="Vite" title="Vite" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/121401671-49102800-c959-11eb-9f6f-74d49a5e1774.png" alt="NPM" title="NPM" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/192108891-d86b6220-e232-423a-bf5f-90903e6887c3.png" alt="VSCode" title="VSCode" width="60px" style="margin:7px">
-<img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" alt="Git" title="Git" width="60px" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png"  alt="Typescript" title="Typescript" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png" alt="PostgreSQL" title="PostgreSQL" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/183859966-a3462d8d-1bc7-4880-b353-e2cbed900ed6.png" alt="ExpressJS" title="ExpressJS" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png" alt="NodeJS" title="NodeJS" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png" alt="TailwindCSS" title="TailwindCSS" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/192158956-48192682-23d5-4bfc-9dfb-6511ade346bc.png" alt="Sass" title="Sass" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="REST guidelines" title="REST guidelines" width="60" style="margin:7px">
+<img src="https://github.com/marwin1991/profile-technology-icons/assets/62091613/b40892ef-efb8-4b0e-a6b5-d1cfc2f3fc35" alt="Vite" title="Vite" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/121401671-49102800-c959-11eb-9f6f-74d49a5e1774.png" alt="NPM" title="NPM" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/192108891-d86b6220-e232-423a-bf5f-90903e6887c3.png" alt="VSCode" title="VSCode" width="60" style="margin:7px">
+<img src="https://user-images.githubusercontent.com/25181517/192108372-f71d70ac-7ae6-4c0d-8395-51d8870c2ef0.png" alt="Git" title="Git" width="60" style="margin:7px">
 
-<!-- <img src="" alt="" title="" width="60px" style="margin:7px"> -->
+<!-- <img src="" alt="" title="" width="60" style="margin:7px"> -->
 
 <br>
 <a href="#" style="color:#cc1d5e">Go to top 👆🏻</a>
 
-## ⚡ Quickstart
+## :zap: Quickstart
 
 The project is a monorepo containing both the **_"frontend"_** and the **_"backend"_** code together.
 
@@ -133,7 +133,7 @@ A JSON file named _[thunder-collection_NativeChat backend.json](<backend/thunder
 
 <a href="#" style="color:#cc1d5e">Go to top 👆🏻</a>
 
-## 🎥 Project Walkthrough
+## :movie_camera: Project Walkthrough
 
 To be made after project phase completed. Sorry to keep you waiting!
 
