@@ -6,24 +6,30 @@ import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import cookieParser from "cookie-parser";
 
-// Routes
-import authRoutes from "./routes/authRoutes";
+// Configs
+import { allowedOrigins } from "./config/cors.config";
 
-// Initializations
+// Socket
+import { socketInit } from "./socket";
+
+// Routes
+import { initializeRoutes } from "./routes";
+
+//* Server Initialization
 const app: Express = express();
 const httpServer = createServer(app);
+
 dotenv.config();
 
-// Globals
+//* Globals
 const PORT: number = Number(process.env.PORT) || 6001;
-const CLIENT_URL: string = process.env.CLIENT_URL || "http://localhost:5173";
 
-// Middleware
+//* Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: allowedOrigins,
   })
 );
 app.use(
@@ -40,11 +46,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Nativechat express server!");
 });
 
-//* Route mapping
-app.use("/auth", authRoutes);
+//* Initializations
+initializeRoutes(app);
+socketInit(httpServer);
 
 httpServer.listen(PORT, () => {
-  console.log(
-    `Server and socket started on ${PORT} and client url is ${CLIENT_URL}`
-  );
+  console.log(`Server and socket started on ${PORT}`);
 });

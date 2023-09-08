@@ -3,7 +3,7 @@ import { sign } from "jsonwebtoken";
 
 const generateAccessToken = (payload: { id: string }) => {
   const secret = process.env.JWT_ACCESS_TOKEN_SECRET || "access_secret";
-  return sign(payload, secret, { expiresIn: "50s" });
+  return sign(payload, secret, { expiresIn: "15m" });
 };
 
 const generateRefreshToken = (payload: { id: string }) => {

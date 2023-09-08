@@ -42,6 +42,7 @@ const SignInForm = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
+        removeError();
         showError(error.message);
       }
     } finally {

@@ -44,6 +44,7 @@ const SignUpForm = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
+        removeError();
         showError(error.message);
       }
     } finally {
