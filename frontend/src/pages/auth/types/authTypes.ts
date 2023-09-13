@@ -1,3 +1,5 @@
+import { UserDataType } from "../../../shared/types";
+
 type SignUpDataType = {
   username: string;
   password: string;
@@ -8,4 +10,8 @@ type SignInDataType = {
   password: string;
 };
 
-export type { SignInDataType, SignUpDataType };
+interface AuthResponseType extends UserDataType {
+  accessToken: string;
+}
+
+export type { SignInDataType, SignUpDataType, AuthResponseType };

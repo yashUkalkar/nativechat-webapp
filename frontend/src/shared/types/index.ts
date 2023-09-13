@@ -6,8 +6,4 @@ type UserDataType = {
   translateLanguage: string;
 };
 
-interface AuthResponseType extends UserDataType {
-  accessToken: string;
-}
-
-export type { AuthResponseType, UserDataType };
+export type { UserDataType };

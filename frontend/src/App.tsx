@@ -12,6 +12,8 @@ import { Loader } from "./shared/components/Loader/Loader";
 import { Custom404Page } from "./shared/components/Custom404Page";
 import { ErrorComponent } from "./shared/components/ErrorComponent";
 
+import { SocketConnectionHOC } from "./shared/components/SocketConnectionHOC";
+
 // Utils
 import { ProtectedRoutes } from "./shared/utils/ProtectedRoutes";
 
@@ -23,18 +25,20 @@ const App = () => {
 
         <ErrorComponent />
 
-        <Routes>
-          <Route path="/" element={<Navigate to="/auth/signin" />} />
+        <SocketConnectionHOC>
+          <Routes>
+            <Route path="/" element={<Navigate to="/auth/signin" />} />
 
-          <Route path="/auth/*" element={<AuthRoutes />} />
+            <Route path="/auth/*" element={<AuthRoutes />} />
 
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/chat/*" element={<ChatRoutes />} />
-          </Route>
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/chat/*" element={<ChatRoutes />} />
+            </Route>
 
-          {/* 404 page for not specified routes */}
-          <Route path="*" element={<Custom404Page />} />
-        </Routes>
+            {/* 404 page for not specified routes */}
+            <Route path="*" element={<Custom404Page />} />
+          </Routes>
+        </SocketConnectionHOC>
       </Suspense>
     </BrowserRouter>
   );

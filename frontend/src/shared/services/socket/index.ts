@@ -7,9 +7,13 @@ const SERVER_URL =
 
 const socketInstance: Socket = io(SERVER_URL, {
   path: "/socket",
-  transports: ["websocket"],
+  transports: ["websocket", "webtransport"],
   withCredentials: true,
   autoConnect: false,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 10000,
+  timeout: 20000,
 });
 
 export { socketInstance };

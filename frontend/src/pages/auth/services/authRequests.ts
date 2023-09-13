@@ -8,7 +8,7 @@ import { server } from "../../../shared/services/api";
 import { getErrorMessage } from "../utils/errorMessageHandler";
 
 // Types
-import { AuthResponseType } from "../../../shared/types";
+import { AuthResponseType } from "../types/authTypes";
 import { SignInDataType, SignUpDataType } from "../types/authTypes";
 
 const sendAuthRequest = async (
