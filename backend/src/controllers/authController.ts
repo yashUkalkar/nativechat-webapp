@@ -1,6 +1,6 @@
 // Packages
 import { JwtPayload, VerifyErrors, verify } from "jsonwebtoken";
-import { Request, Response } from "express";
+import { Request, Response, CookieOptions } from "express";
 
 // DB object
 import { prisma } from "../db/prisma";
@@ -11,6 +11,13 @@ import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
 // Types
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+
+const JwtCookieOptions: CookieOptions = {
+  httpOnly: true,
+  sameSite: "none",
+  secure: true,
+  maxAge: 24 * 60 * 60 * 1000,
+};
 
 const signInUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -45,12 +52,7 @@ const signInUser = async (req: Request, res: Response) => {
         });
 
       //* Add refresh token as cookie
-      res.cookie("jwt", userRefreshToken, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      });
+      res.cookie("jwt", userRefreshToken, JwtCookieOptions);
 
       //* Return required user data as response
       const { passwordHash, refreshToken, ...userDataToReturn } = userData;
@@ -121,12 +123,7 @@ const signUpUser = async (req: Request, res: Response) => {
               });
 
             //* Add refresh token as cookie
-            res.cookie("jwt", userRefreshToken, {
-              httpOnly: true,
-              sameSite: "none",
-              secure: true,
-              maxAge: 24 * 60 * 60 * 1000,
-            });
+            res.cookie("jwt", userRefreshToken, JwtCookieOptions);
 
             //* Return required user data as response
             const { passwordHash, refreshToken, ...userDataToReturn } =
@@ -142,7 +139,10 @@ const signUpUser = async (req: Request, res: Response) => {
 const signOutUser = async (req: Request, res: Response) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt) return res.sendStatus(204); // Success and no content to send back
+  if (!cookies?.jwt) {
+    console.log("No cookie found");
+    return res.sendStatus(204);
+  } // Success and no content to send back
 
   const refreshToken = cookies.jwt;
   //* Find user with given refresh token
@@ -164,11 +164,8 @@ const signOutUser = async (req: Request, res: Response) => {
     })
     .catch((err: PrismaClientKnownRequestError) => {
       if (err.code === "P2025") {
-        res.clearCookie("jwt", {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-        });
+        const { maxAge, ...ClearCookieOptions } = JwtCookieOptions;
+        res.clearCookie("jwt", ClearCookieOptions);
         return res.sendStatus(204); // Successful but no content to return
       }
 

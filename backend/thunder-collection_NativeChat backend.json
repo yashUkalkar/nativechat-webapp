@@ -1,127 +1,241 @@
 {
     "client": "Thunder Client",
     "collectionName": "NativeChat backend",
-    "dateExported": "2023-09-04T17:49:49.492Z",
+    "dateExported": "2023-09-15T06:43:29.708Z",
     "version": "1.1",
     "folders": [
         {
-            "_id": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
-            "name": "Auth",
+            "_id": "bad7676a-e8c2-48a6-b966-1bbeba660922",
+            "name": "Auth Requests",
             "containerId": "",
-            "created": "2023-09-04T17:24:38.026Z",
-            "sortNum": 20000
+            "created": "2023-09-14T11:27:29.583Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "0bcfc7a3-08df-482c-9545-1f35809f2bc1",
+            "name": "User Requests",
+            "containerId": "",
+            "created": "2023-09-14T11:45:40.678Z",
+            "sortNum": 20000,
+            "settings": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": "{{accessToken}}"
+                }
+            }
+        },
+        {
+            "_id": "38e638f4-986f-4c32-951f-8d929914c3f1",
+            "name": "Conversations",
+            "containerId": "",
+            "created": "2023-09-14T15:06:35.205Z",
+            "sortNum": 30000,
+            "settings": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": "{{accessToken}}"
+                }
+            }
         }
     ],
     "requests": [
         {
-            "_id": "5df235ed-fe07-4141-b0c0-c87f99198def",
-            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
+            "_id": "90ba2e2c-209f-40e8-9bb5-0b2dbafedf13",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
             "containerId": "",
-            "name": "Base GET to check response",
+            "name": "Base GET for connection check",
             "url": "/",
             "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-09-04T16:12:59.621Z",
-            "modified": "2023-09-04T17:48:35.608Z",
+            "sortNum": 20000,
+            "created": "2023-09-14T11:23:54.096Z",
+            "modified": "2023-09-14T11:26:51.440Z",
             "headers": [],
             "params": [],
             "tests": []
         },
         {
-            "_id": "0e67f4bf-b2c0-4e0b-8f94-33f89431eb93",
-            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
-            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
-            "name": "Sign in request",
+            "_id": "9b8ba4a6-cd45-41b8-b158-6e14abb73896",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "bad7676a-e8c2-48a6-b966-1bbeba660922",
+            "name": "Sign In",
             "url": "/auth/signin",
             "method": "POST",
-            "sortNum": 20000,
-            "created": "2023-09-04T16:19:07.886Z",
-            "modified": "2023-09-04T17:47:43.855Z",
-            "headers": [
-                {
-                    "name": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
+            "sortNum": 30000,
+            "created": "2023-09-14T11:27:37.280Z",
+            "modified": "2023-09-14T18:21:25.221Z",
+            "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"sampleuser\",\n  \"password\": \"samplepass\"\n}",
+                "raw": "{\n  \"username\": \"tempuser\",\n  \"password\": \"temppass\"\n}",
                 "form": []
             },
-            "tests": []
-        },
-        {
-            "_id": "93bd8868-f19c-4d93-8f0d-028608ffab0d",
-            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
-            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
-            "name": "Refresh access token",
-            "url": "/auth/refresh",
-            "method": "GET",
-            "sortNum": 30000,
-            "created": "2023-09-04T16:49:30.179Z",
-            "modified": "2023-09-04T17:48:49.944Z",
-            "headers": [
+            "tests": [
                 {
-                    "name": "Cookie",
-                    "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0NTk0NiwiZXhwIjoxNjkzOTMyMzQ2fQ.0GbK3zjVj1PwlRfcIWlvsHeZH4ourr0ehhJditoz5Bg",
-                    "isDisabled": true
-                }
-            ],
-            "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0NTk0NiwiZXhwIjoxNjkzODQ1OTk2fQ.gJGcZfQtDRRqMCWaMCh7DLYeA1BF4B9_tyd7jDaTkdo"
-            },
-            "tests": []
-        },
-        {
-            "_id": "9261d1c6-5574-4459-82a9-9be7cbfab61d",
-            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
-            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
-            "name": "Sign out",
-            "url": "/auth/signout",
-            "method": "POST",
-            "sortNum": 40000,
-            "created": "2023-09-04T17:36:36.794Z",
-            "modified": "2023-09-04T17:49:01.538Z",
-            "headers": [
+                    "type": "set-env-var",
+                    "custom": "json.accessToken",
+                    "action": "setto",
+                    "value": "{{accessToken}}"
+                },
                 {
-                    "name": "Cookie",
-                    "value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhNWU2NmFhLTg0ZjUtNGIwYi1hMjM5LTg2Y2E0MDVhNzc5MCIsImlhdCI6MTY5Mzg0ODg0OSwiZXhwIjoxNjkzOTM1MjQ5fQ.F0lUP-PnEtslNylpkISCufRzuoVDg_-wOOVa4Gq1P4Q"
+                    "type": "set-env-var",
+                    "custom": "cookie.jwt",
+                    "action": "setto",
+                    "value": "{{refreshToken}}"
                 }
-            ],
-            "params": [],
-            "tests": []
+            ]
         },
         {
-            "_id": "b0a44b3c-89a3-4bd3-ba8c-2f9edc6194b3",
-            "colId": "dcdbad2d-e959-4c2a-b766-21e4f3fc177a",
-            "containerId": "17beb455-1d86-4ffe-a4ca-2e14ebe32911",
-            "name": "Sign up request",
+            "_id": "0bbb2dab-f1b6-4fc9-bb7c-4330f01e70be",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "bad7676a-e8c2-48a6-b966-1bbeba660922",
+            "name": "Sign Up",
             "url": "/auth/signup",
             "method": "POST",
-            "sortNum": 50000,
-            "created": "2023-09-04T17:37:59.879Z",
-            "modified": "2023-09-04T17:49:24.890Z",
-            "headers": [
-                {
-                    "name": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
+            "sortNum": 40000,
+            "created": "2023-09-14T11:38:04.809Z",
+            "modified": "2023-09-14T11:41:01.788Z",
+            "headers": [],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"username\": \"sampleuser\",\n  \"password\": \"samplepass\",\n  \"confirmPassword\": \"samplepass\"\n}",
                 "form": []
             },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.accessToken",
+                    "action": "setto",
+                    "value": "{{accessToken}}"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "cookie.jwt",
+                    "action": "setto",
+                    "value": "{{refreshToken}}"
+                }
+            ],
+            "preReq": {
+                "options": {
+                    "clearCookies": true
+                }
+            }
+        },
+        {
+            "_id": "db3e60f3-ca7d-4439-aec2-af7ca5c74b29",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "bad7676a-e8c2-48a6-b966-1bbeba660922",
+            "name": "Sign Out",
+            "url": "/auth/signout",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-09-14T11:41:41.312Z",
+            "modified": "2023-09-14T11:44:35.590Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt={{refreshToken}}"
+                }
+            ],
+            "params": [],
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "null",
+                    "action": "setto",
+                    "value": "{{accessToken}}"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "null",
+                    "action": "setto",
+                    "value": "{{refreshToken}}"
+                }
+            ]
+        },
+        {
+            "_id": "b640942e-5fcc-44f8-b0bb-c6fe64093399",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "0bcfc7a3-08df-482c-9545-1f35809f2bc1",
+            "name": "Find users by username",
+            "url": "/user/getUsers",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-09-14T11:46:24.207Z",
+            "modified": "2023-09-14T11:49:40.117Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"ra\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d52de7d8-c385-40aa-b742-fcfc7b4e68b1",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "38e638f4-986f-4c32-951f-8d929914c3f1",
+            "name": "Add new conversation",
+            "url": "/conversations",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-09-14T15:07:17.910Z",
+            "modified": "2023-09-14T18:20:37.439Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"conversationUserID\": \"3fdaf782-fd13-407e-b9ee-c73114ce5b4a\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d703400b-8a1f-4009-a2ab-bb697dad4d14",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "38e638f4-986f-4c32-951f-8d929914c3f1",
+            "name": "Fetch all conversations",
+            "url": "/conversations",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-09-14T18:18:45.636Z",
+            "modified": "2023-09-14T18:19:13.359Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6a0e937f-448e-44fe-86ff-d96f43e8d8a3",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "38e638f4-986f-4c32-951f-8d929914c3f1",
+            "name": "Delete conversation",
+            "url": "/conversations",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2023-09-14T18:32:04.656Z",
+            "modified": "2023-09-14T18:44:02.599Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"conversationID\": \"d443c728-1d35-4e50-b376-2544de3c0ea2\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ],
     "settings": {
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            }
+        ],
         "options": {
             "baseUrl": "http://localhost:6001"
-        }
+        },
+        "envId": "1b4cacb0-99a8-442e-a7d2-81a1e5eddcdd"
     }
 }

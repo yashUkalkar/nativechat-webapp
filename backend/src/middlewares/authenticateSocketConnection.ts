@@ -3,12 +3,10 @@ import { JwtPayload, VerifyErrors, verify } from "jsonwebtoken";
 
 // Types
 import { Socket } from "socket.io";
+import { ExtendedJwtPayload } from "../types";
 
 interface ExtendedError extends Error {
   data?: any;
-}
-interface ExtendedJwtPayload extends JwtPayload {
-  id?: string;
 }
 
 const authenticateSocketConnection = (
