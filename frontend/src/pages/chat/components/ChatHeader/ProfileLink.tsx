@@ -2,7 +2,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Components
-import { ProfileIcon } from "../shared/ProfileIcon";
+import { ProfileIcon } from "../ProfileIcon";
 
 // Store
 import { useStore } from "../../../../shared/store";

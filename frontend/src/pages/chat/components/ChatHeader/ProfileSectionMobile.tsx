@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // Components
-import { ProfileIcon } from "../shared/ProfileIcon";
+import { ProfileIcon } from "../ProfileIcon";
 import { ProfileSection } from "./ProfileSection";
 
 const ProfileSectionMobile = () => {

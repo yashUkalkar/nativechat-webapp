@@ -1,10 +1,12 @@
 // Packages
 import express, { Express, Request, Response } from "express";
 import { createServer } from "http";
-import dotenv from "dotenv";
 import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import cookieParser from "cookie-parser";
+
+import dotenv from "dotenv";
+dotenv.config();
 
 // Configs
 import { allowedOrigins } from "./config/cors.config";
@@ -19,8 +21,6 @@ import { initializeRoutes } from "./routes";
 const app: Express = express();
 const httpServer = createServer(app);
 
-dotenv.config();
-
 //* Globals
 const PORT: number = Number(process.env.PORT) || 6001;
 
@@ -30,6 +30,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: allowedOrigins,
+    credentials: true,
   })
 );
 app.use(

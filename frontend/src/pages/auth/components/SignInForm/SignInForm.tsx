@@ -1,7 +1,6 @@
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Components
 import { InputField } from "../InputField";
@@ -17,7 +16,7 @@ import { useStore } from "../../../../shared/store";
 import { SignInDataType } from "../../types/authTypes";
 
 // Assets
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { UserIcon, LockIcon } from "../../../../assets/icons/icons";
 
 const SignInForm = () => {
   const showError = useStore((state) => state.showError);
@@ -90,7 +89,7 @@ const SignInForm = () => {
             placeholder: "sampleUsername",
             autoComplete: "off",
           }}
-          icon={<FontAwesomeIcon icon={faUser} />}
+          icon={<UserIcon />}
           errorState={errors.username}
           errorMessage="!Required field. Format: '3 <= length <= 30'"
         />
@@ -115,7 +114,7 @@ const SignInForm = () => {
             placeholder: "Samplepassword@123",
             autoComplete: "off",
           }}
-          icon={<FontAwesomeIcon icon={faLock} />}
+          icon={<LockIcon />}
           errorState={errors.password}
           errorMessage="Required Field! Format: '7 <= length <= 20'"
         />

@@ -12,7 +12,7 @@ import { verifyJWT } from "../middlewares/verifyJWT";
 const initializeRoutes = (app: Express) => {
   app.use("/auth", authRoutes);
   app.use("/conversations", verifyJWT, conversationRoutes);
-  app.use("/user", verifyJWT, userRoutes);
+  app.use("/users", verifyJWT, userRoutes);
 };
 
 export { initializeRoutes };

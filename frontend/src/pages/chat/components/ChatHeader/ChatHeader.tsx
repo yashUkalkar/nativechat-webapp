@@ -1,7 +1,7 @@
 // Components
 import { NamedLogo } from "../../../../shared/components/NamedLogo";
 import { ProfileLink } from "./ProfileLink";
-import { SignoutButton } from "../shared/SignoutButton";
+import { SignoutButton } from "../SignoutButton";
 import { ProfileSectionMobile } from "./ProfileSectionMobile";
 
 const ChatHeader = () => {

@@ -2,15 +2,19 @@
 import { JwtPayload, VerifyErrors, verify } from "jsonwebtoken";
 import { Request, Response, CookieOptions } from "express";
 
-// DB object
-import { prisma } from "../db/prisma";
+// DB
+import { db } from "../db";
 
 // Utils
 import { matchPassword, hashPassword } from "../utils/hash";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} from "../utils/jwt";
 
 // Types
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { CustomError } from "../types";
 
 const JwtCookieOptions: CookieOptions = {
   httpOnly: true,
@@ -24,16 +28,17 @@ const signInUser = async (req: Request, res: Response) => {
 
   //* Check if data is given with request
   if (!username || !password)
-    return res.status(400).send("Invalid credentials");
+    return res.status(400).send("Invalid credentials"); //! Bad request
 
-  //* Check if user exists
-  return await prisma.users
-    .findFirstOrThrow({ where: { username } })
-    .then(async (userData) => {
+  try {
+    //* Check if user exists
+    const userData = await db.authQueries.getUserByUsername(username);
+
+    if (userData) {
       //* Match passwords
       const match = await matchPassword(password, userData.passwordHash);
-
       if (!match)
+        //! Unauthorized
         return res.status(401).send("Wrong password. Please try again!");
 
       //* Generate JWTs
@@ -41,34 +46,23 @@ const signInUser = async (req: Request, res: Response) => {
       const userAccessToken = generateAccessToken(payload);
       const userRefreshToken = generateRefreshToken(payload);
 
-      //* Update refresh token in db
-      await prisma.users
-        .update({
-          where: { username },
-          data: { refreshToken: userRefreshToken },
-        })
-        .catch((err) => {
-          return res.sendStatus(500); // Unexpected error
-        });
+      //* Update refresh token in DB
+      await db.authQueries.updateRefreshToken(userData.id, userRefreshToken);
 
-      //* Add refresh token as cookie
-      res.cookie("jwt", userRefreshToken, JwtCookieOptions);
-
-      //* Return required user data as response
+      //* Return user data and tokens as response
       const { passwordHash, refreshToken, ...userDataToReturn } = userData;
       return res
         .status(200)
+        .cookie("jwt", userRefreshToken, JwtCookieOptions)
         .send({ ...userDataToReturn, accessToken: userAccessToken });
-    })
-    .catch((err: PrismaClientKnownRequestError) => {
-      if (err.code === "P2025")
-        return res
-          .status(404)
-          .send(
-            `No account with username '${username}' found. Try signing up!`
-          );
-      else return res.sendStatus(500);
-    });
+    }
+
+    // If unable to access user data
+    return res.status(500).send("Some unknown error occurred"); //! Server error
+  } catch (err) {
+    const error = <CustomError>err;
+    return res.status(error.code).send(error.message);
+  }
 };
 
 const signUpUser = async (req: Request, res: Response) => {
@@ -76,143 +70,113 @@ const signUpUser = async (req: Request, res: Response) => {
 
   //* Check if values are provided
   if (!username || !password || !confirmPassword)
-    return res.status(400).send("Invalid credentials");
+    return res.status(400).send("Invalid credentials"); //! Bad request
 
   //* Check if passwords match
   if (password !== confirmPassword)
-    return res.status(400).send("Passwords must match");
+    return res.status(400).send("Passwords must match"); //! Bad request
 
-  //* Check if user with given 'username' already exists
-  return await prisma.users
-    .findFirstOrThrow({ where: { username } })
-    .then((userData) => {
-      //* Respond with error as this is an invalid operation request
-      return res
-        .status(409)
-        .send(
-          `Account for '${username}' already exists. Try signing in OR use a different username!`
-        );
-    })
-    .catch(async (err: PrismaClientKnownRequestError) => {
-      if (err.code === "P2025") {
-        //* Hash password
-        const passwordHash = await hashPassword(password);
+  try {
+    //* Check if user with given 'username' already exists
+    const userExists = await db.authQueries.checkIfUserExists(username);
+    if (userExists) return res.status(409).send(); //! Conflict
 
-        //* No user found so create user
-        return await prisma.users
-          .create({
-            data: {
-              username,
-              passwordHash,
-            },
-          })
-          .then(async (userData) => {
-            //* Generate JWTs
-            const payload = { id: userData.id };
-            const userAccessToken = generateAccessToken(payload);
-            const userRefreshToken = generateRefreshToken(payload);
+    //* Hash password
+    const hashedPassword = await hashPassword(password);
 
-            //* Update refresh token in db
-            await prisma.users
-              .update({
-                where: { id: userData.id },
-                data: { refreshToken: userRefreshToken },
-              })
-              .catch((err) => {
-                return res.sendStatus(500); // Unexpected error
-              });
+    //* Add user to DB
+    const userData = await db.authQueries.addNewUser(username, hashedPassword);
 
-            //* Add refresh token as cookie
-            res.cookie("jwt", userRefreshToken, JwtCookieOptions);
+    //* Generate JWTs
+    const payload = { id: userData.id };
+    const userAccessToken = generateAccessToken(payload);
+    const userRefreshToken = generateRefreshToken(payload);
 
-            //* Return required user data as response
-            const { passwordHash, refreshToken, ...userDataToReturn } =
-              userData;
-            return res
-              .status(201)
-              .send({ ...userDataToReturn, accessToken: userAccessToken });
-          });
-      } else return res.sendStatus(500); // Unexpected error
-    });
+    //* Update refresh token in DB
+    await db.authQueries.updateRefreshToken(userData.id, userRefreshToken);
+
+    //* Return user data and tokens as response
+    return res
+      .status(200)
+      .cookie("jwt", userRefreshToken, JwtCookieOptions)
+      .send({ ...userData, accessToken: userAccessToken });
+  } catch (err) {
+    const error = <CustomError>err;
+    return res.status(error.code).send(error.message);
+  }
 };
 
 const signOutUser = async (req: Request, res: Response) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt) {
-    console.log("No cookie found");
-    return res.sendStatus(204);
-  } // Success and no content to send back
+  //* Check if refresh token is provided as cookie with the request
+  if (!cookies?.jwt) return res.sendStatus(204); // No content
+  else {
+    try {
+      //* Get user ID from the token
+      const refreshToken = cookies.jwt;
+      const userID = verifyRefreshToken(refreshToken);
+      if (userID) {
+        //* Delete refresh token from DB
+        await db.authQueries.updateRefreshToken(userID, "");
 
-  const refreshToken = cookies.jwt;
-  //* Find user with given refresh token
-  return await prisma.users
-    .findFirstOrThrow({ where: { refreshToken } })
-    .then(async (userData) => {
-      //* Clear refresh token
-      return await prisma.users
-        .update({
-          where: { id: userData.id },
-          data: { refreshToken: "" },
-        })
-        .then((responseData) => {
-          return res.sendStatus(204);
-        })
-        .catch((err) => {
-          return res.sendStatus(500); // Unexpected error
-        });
-    })
-    .catch((err: PrismaClientKnownRequestError) => {
-      if (err.code === "P2025") {
+        //* Clear cookie on user's side
         const { maxAge, ...ClearCookieOptions } = JwtCookieOptions;
-        res.clearCookie("jwt", ClearCookieOptions);
-        return res.sendStatus(204); // Successful but no content to return
+        return res.clearCookie("jwt", ClearCookieOptions).sendStatus(204); // No content to return
+      } else {
+        const customError: CustomError = {
+          code: 500,
+          message: "Some unknown error occurred",
+        };
+        throw customError;
       }
-
-      return res.sendStatus(500); // Unexpected error
-    });
+    } catch (err) {
+      const error = <CustomError>err;
+      return res.status(error.code).send(error.message);
+    }
+  }
 };
 
 const handleRefreshToken = async (req: Request, res: Response) => {
   const cookies = req.cookies;
 
-  if (!cookies?.jwt) return res.sendStatus(401);
-
-  const refreshToken = cookies.jwt;
-
-  //* Find user with given refresh token
-  return await prisma.users
-    .findFirstOrThrow({
-      where: { refreshToken },
-    })
-    .then((responseData) => {
+  //* Check if refresh token is provided as cookie with the request
+  if (!cookies?.jwt) return res.sendStatus(401); // No content
+  else {
+    const refreshToken = cookies.jwt;
+    try {
       //* Verify refresh token
-      const secret = process.env.JWT_REFRESH_TOKEN_SECRET || "refresh_secret";
-      type DecodedType = { id: string };
-      verify(
-        refreshToken,
-        secret,
-        (
-          err: VerifyErrors | null,
-          decoded: JwtPayload | string | undefined
-        ) => {
-          if (err || (<DecodedType>decoded).id !== responseData.id)
-            return res.sendStatus(403); // Forbidden request
-
-          //* Generate new access token
-          const payload = { id: (<DecodedType>decoded).id };
-          const accessToken = generateAccessToken(payload);
-
-          //* Return new access token
-          return res.json(accessToken);
+      const userID = verifyRefreshToken(refreshToken);
+      if (userID) {
+        const userData = await db.authQueries.getUserByID(userID);
+        if (userData.refreshToken !== refreshToken) {
+          // User has signed out or request made with older refresh token
+          const unauthorizedError: CustomError = {
+            code: 401,
+            message: "Unable to allow requested action.",
+          };
+          throw unauthorizedError;
         }
-      );
-    })
-    .catch(async (err: PrismaClientKnownRequestError) => {
-      if (err.code === "P2025") return res.sendStatus(403); // No user found -> Forbidden request
 
-      return res.sendStatus(500); // Unexpected error
-    });
+        //* Generate new access token
+        const payload = { id: userData.id };
+        const accessToken = generateAccessToken(payload);
+
+        //* Return the new access token as response
+        return res.json({ accessToken });
+      }
+
+      // Some error occurred, no ID found in token
+      const customError: CustomError = {
+        code: 500,
+        message: "Unknown error occurred",
+      };
+      throw customError;
+    } catch (err) {
+      const error = <CustomError>err;
+      return res.status(error.code).send(error.message);
+    }
+  }
 };
 
 export const authController = {

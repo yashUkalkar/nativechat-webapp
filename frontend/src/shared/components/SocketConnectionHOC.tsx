@@ -11,6 +11,7 @@ const SocketConnectionHOC = ({ children }: { children: React.ReactNode }) => {
   const auth = useStore((state) => state.auth);
 
   const showError = useStore((state) => state.showError);
+  const removeError = useStore((state) => state.removeError);
 
   useEffect(() => {
     if (auth.user && auth.accessToken && !socketInstance.connected) {
@@ -19,14 +20,14 @@ const SocketConnectionHOC = ({ children }: { children: React.ReactNode }) => {
       };
       socketInstance.connect();
 
-      socketInstance.on("connect", () =>
-        console.log(`Connected with socket ID : ${socketInstance.id}`)
-      );
+      socketInstance.on("connect", () => {
+        console.log(`Connected with socket ID : ${socketInstance.id}`);
+        removeError();
+      });
 
       socketInstance.on("connect_error", () => {
-        // TODO: Implement error handling to refresh access token and reconnect if token expiration is the issue of connect error
         showError(
-          "Message server not responding! Try signing out and sign in again"
+          "Unable to connect to messaging server. Trying to reconnect!"
         );
       });
     }

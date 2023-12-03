@@ -5,6 +5,7 @@ const SERVER_URL =
 
 const server = axios.create({
   baseURL: SERVER_URL,
+  withCredentials: true,
 });
 
 const serverPrivate = axios.create({

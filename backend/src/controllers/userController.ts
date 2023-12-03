@@ -1,36 +1,45 @@
 // DB
-import { prisma } from "../db/prisma";
+import { db } from "../db";
 
 // Types
 import { Response } from "express";
-import { RequestTypeWithJWT } from "../types";
+import { CustomError, RequestTypeWithJWT, ExtendedJwtPayload } from "../types";
 
 const getUsersByMatchingUsername = async (
   req: RequestTypeWithJWT,
   res: Response
 ) => {
-  // FIXME: Empty body is given with request, fix that
-  const { username } = req.body;
+  const { username } = req.query;
+  const requesterUserID = (<ExtendedJwtPayload>req.userDataFromToken)?.id;
 
-  if (!username)
-    return res.status(400).send("Empty search cannot be performed.");
+  //* Check for empty values
+  if (!requesterUserID) {
+    const unknownError: CustomError = {
+      code: 500,
+      message: "Some error occurred on the Server",
+    };
+    throw unknownError;
+  }
+  if (!username) {
+    const emptySearchError: CustomError = {
+      code: 400,
+      message: "Empty search cannot be performed",
+    };
+    throw emptySearchError;
+  }
 
   try {
-    const usersList = await prisma.users.findMany({
-      where: {
-        username: { contains: username },
-      },
-      select: {
-        id: true,
-        username: true,
-        profileImage: true,
-      },
-    });
+    //* Fetch users with given 'username' parameter
+    const usersList = await db.userQueries.findUsersByUsername(
+      username.toString(),
+      requesterUserID
+    );
 
+    //* Respond with users list that match given 'username' parameter
     return res.status(200).send(usersList);
   } catch (err) {
-    console.log(err);
-    return res.status(500).send("Unable to search for users. Sorry!");
+    const error = <CustomError>err;
+    return res.status(error.code).send(error.message);
   }
 };
 

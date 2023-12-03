@@ -20,9 +20,22 @@ model Users {
   refreshToken        String  @default("")
 
   conversations Conversations[]
+  Messages      Messages[]
 }
 
 model Conversations {
-  id    String  @id @default(uuid()) @db.Uuid
-  users Users[]
+  id       String     @id @default(uuid()) @db.Uuid
+  users    Users[]
+  messages Messages[]
+}
+
+model Messages {
+  id             String   @id @default(uuid()) @db.Uuid
+  conversationID String   @db.Uuid
+  senderID       String   @db.Uuid
+  content        String
+  sentAt         DateTime @default(now()) @db.Timestamptz
+
+  ConversationRelation Conversations @relation(fields: [conversationID], references: [id])
+  SenderRelation       Users         @relation(fields: [senderID], references: [id])
 }

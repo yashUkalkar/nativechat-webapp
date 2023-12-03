@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "NativeChat backend",
-    "dateExported": "2023-09-15T06:43:29.708Z",
+    "dateExported": "2023-09-16T14:20:59.440Z",
     "version": "1.1",
     "folders": [
         {
@@ -224,6 +224,32 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "7514249a-97e1-41d0-b532-78b50e5c09bb",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "bad7676a-e8c2-48a6-b966-1bbeba660922",
+            "name": "Refresh Access Token",
+            "url": "/auth/refresh",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-09-16T14:14:56.064Z",
+            "modified": "2023-09-16T14:19:50.377Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt={{refreshToken}}"
+                }
+            ],
+            "params": [],
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.accessToken",
+                    "action": "setto",
+                    "value": "{{accessToken}}"
+                }
+            ]
         }
     ],
     "settings": {

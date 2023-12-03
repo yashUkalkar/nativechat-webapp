@@ -1,12 +1,17 @@
 // Packages
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Services
+import { serverPrivate } from "../../../shared/services/api";
+import { socketInstance } from "../../../shared/services/socket";
 
 // Store
-import { useStore } from "../../../../shared/store";
+import { useStore } from "../../../shared/store";
 
 // Assets
-import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { SignoutIcon } from "../../../assets/icons/icons";
+// import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 
 const SignoutButton = ({
   showOnSmallScreens,
@@ -17,6 +22,21 @@ const SignoutButton = ({
 
   const navigate = useNavigate();
 
+  const signoutHandler = async () => {
+    await serverPrivate
+      .post("/auth/signout")
+      .then(() => {
+        socketInstance.disconnect();
+        clearAuth();
+        navigate("/");
+      })
+      .catch(() => {
+        socketInstance.disconnect();
+        clearAuth();
+        navigate("/");
+      });
+  };
+
   return (
     <button
       className={
@@ -24,15 +44,12 @@ const SignoutButton = ({
         (showOnSmallScreens ? " flex md:hidden" : " hidden md:flex")
       }
       title="Sign Out!"
-      onClick={() => {
-        clearAuth();
-        navigate("/");
-      }}
+      onClick={signoutHandler}
     >
       <p className={showOnSmallScreens ? "" : " hidden lg:inline-block"}>
         Sign Out
       </p>
-      <FontAwesomeIcon icon={faPowerOff} />
+      <SignoutIcon />
     </button>
   );
 };

@@ -1,7 +1,6 @@
 // Packages
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Components
 import { InputField } from "../InputField";
@@ -17,7 +16,7 @@ import { useStore } from "../../../../shared/store";
 import { SignUpDataType } from "../../types/authTypes";
 
 // Assets
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import { UserIcon, LockIcon } from "../../../../assets/icons/icons";
 // import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const SignUpForm = () => {
@@ -92,7 +91,7 @@ const SignUpForm = () => {
             placeholder: "sampleUsername",
             autoComplete: "off",
           }}
-          icon={<FontAwesomeIcon icon={faUser} />}
+          icon={<UserIcon />}
           errorState={errors.username}
           errorMessage="!Required field. Format: '3 <= length <= 30'"
         />
@@ -117,7 +116,7 @@ const SignUpForm = () => {
             placeholder: "Samplepassword@123",
             autoComplete: "off",
           }}
-          icon={<FontAwesomeIcon icon={faLock} />}
+          icon={<LockIcon />}
           errorState={errors.password}
           errorMessage="!Required field. Format: '7 <= length <= 20'"
         />
@@ -146,7 +145,7 @@ const SignUpForm = () => {
             placeholder: "Samplepassword@123",
             autoComplete: "off",
           }}
-          icon={<FontAwesomeIcon icon={faLock} />}
+          icon={<LockIcon />}
           errorState={errors.confirmPassword}
           errorMessage="!Required field. Passwords must match."
         />

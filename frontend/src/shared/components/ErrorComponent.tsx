@@ -1,11 +1,12 @@
 // Packages
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Store
 import { useStore } from "../../shared/store";
 
 // Assets
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { CloseIcon } from "../../assets/icons/icons";
+// import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 const ErrorComponent = () => {
   const errorState = useStore((state) => state.errorState);
@@ -22,7 +23,7 @@ const ErrorComponent = () => {
           className="w-5 h-5 bg-white rounded-full grid place-items-center absolute right-2 top-1/2 -translate-y-1/2 hover:scale-110 cursor-pointer"
           onClick={removeError}
         >
-          <FontAwesomeIcon icon={faClose} size="lg" />
+          <CloseIcon />
         </span>
       </div>
     </div>

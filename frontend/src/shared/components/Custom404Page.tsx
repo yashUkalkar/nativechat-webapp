@@ -1,9 +1,10 @@
 // Packages
 import { useNavigate, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Assets
-import { faExclamationCircle, faHome } from "@fortawesome/free-solid-svg-icons";
+import { HomeIcon, ErrorIcon } from "../../assets/icons/icons";
+// import { faExclamationCircle, faHome } from "@fortawesome/free-solid-svg-icons";
 
 const Custom404Page = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Custom404Page = () => {
     <div className="w-screen h-screen min-h-screen overflow-x-hidden grid place-items-center">
       <div className="bg-white bg-opacity-70 backdrop-blur-[5px] rounded-lg p-4 md:p-7">
         <span className="flex items-center justify-around gap-4 font-bold text-2xl md:text-3xl m-5">
-          <FontAwesomeIcon icon={faExclamationCircle} />
+          <ErrorIcon />
           <p>Page not available</p>
         </span>
 
@@ -24,7 +25,7 @@ const Custom404Page = () => {
           onClick={() => navigate(directedFrom, { replace: true })}
         >
           <p className="text-pink">Go back</p>
-          <FontAwesomeIcon icon={faHome} />
+          <HomeIcon />
         </span>
       </div>
     </div>

@@ -12,16 +12,18 @@ const useRefreshToken = () => {
     accessToken: string;
   };
   const refresh = async () => {
-    const response = await server.get<RefreshResponseType>(
-      "/auth/refresh-token",
-      {
+    try {
+      const response = await server.get<RefreshResponseType>("/auth/refresh", {
         withCredentials: true,
-      }
-    );
+      });
 
-    setAuth(auth.user, response.data.accessToken);
+      setAuth(auth.user, response.data.accessToken);
 
-    return response.data.accessToken;
+      return response.data.accessToken;
+    } catch (err) {
+      // TODO: Log user out if refresh token expired
+      console.log(err);
+    }
   };
 
   return refresh;
