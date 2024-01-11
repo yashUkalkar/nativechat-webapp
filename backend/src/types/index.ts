@@ -1,4 +1,5 @@
 import type { Users as UserType } from "@prisma/client";
+import type { Messages as MessageType } from "@prisma/client";
 
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
@@ -10,6 +11,7 @@ type CustomError = {
 
 interface ExtendedJwtPayload extends JwtPayload {
   id?: string;
+  username?: string;
 }
 interface RequestTypeWithJWT extends Request {
   userDataFromToken?: string | ExtendedJwtPayload;
@@ -63,4 +65,7 @@ export {
   // Conversation types
   ConversationType,
   ConversationsList,
+
+  // Messages type
+  MessageType,
 };

@@ -1,5 +1,4 @@
 // Packages
-import { JwtPayload, VerifyErrors, verify } from "jsonwebtoken";
 import { Request, Response, CookieOptions } from "express";
 
 // DB
@@ -42,9 +41,9 @@ const signInUser = async (req: Request, res: Response) => {
         return res.status(401).send("Wrong password. Please try again!");
 
       //* Generate JWTs
-      const payload = { id: userData.id };
+      const payload = { id: userData.id, username: userData.username };
       const userAccessToken = generateAccessToken(payload);
-      const userRefreshToken = generateRefreshToken(payload);
+      const userRefreshToken = generateRefreshToken({ id: userData.id });
 
       //* Update refresh token in DB
       await db.authQueries.updateRefreshToken(userData.id, userRefreshToken);
@@ -88,9 +87,9 @@ const signUpUser = async (req: Request, res: Response) => {
     const userData = await db.authQueries.addNewUser(username, hashedPassword);
 
     //* Generate JWTs
-    const payload = { id: userData.id };
+    const payload = { id: userData.id, username: userData.username };
     const userAccessToken = generateAccessToken(payload);
-    const userRefreshToken = generateRefreshToken(payload);
+    const userRefreshToken = generateRefreshToken({ id: userData.id });
 
     //* Update refresh token in DB
     await db.authQueries.updateRefreshToken(userData.id, userRefreshToken);
@@ -159,7 +158,7 @@ const handleRefreshToken = async (req: Request, res: Response) => {
         }
 
         //* Generate new access token
-        const payload = { id: userData.id };
+        const payload = { id: userData.id, username: userData.username };
         const accessToken = generateAccessToken(payload);
 
         //* Return the new access token as response

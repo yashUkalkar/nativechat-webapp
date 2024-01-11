@@ -36,6 +36,9 @@ const NewChatOption = ({
   const addNewConversation = useConversationStore(
     (state) => state.addNewConversation
   );
+  const setCurrentConversation = useConversationStore(
+    (state) => state.setCurrentConversation
+  );
 
   const userIDsInConversations = conversationsList.map((conv) => conv.user.id);
 
@@ -92,12 +95,14 @@ const NewChatOption = ({
         {users.length ? (
           users.map((user) => (
             <div
+              key={user.id}
               className="flex items-center justify-start gap-3 p-2 m-1 rounded-lg hover:scale-[1.01] hover:shadow-md active:scale-100 transition cursor-pointer bg-white border-[1px] border-pink"
               onClick={() => {
                 //TODO: Add loading animation for the duration
                 createNewConversation(axiosPrivate, user.id)
                   .then((conv) => {
                     addNewConversation(conv);
+                    setCurrentConversation(conv);
                     setShowFilterComponent(false);
                   })
                   .catch((err) => {

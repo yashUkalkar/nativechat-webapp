@@ -13,8 +13,8 @@ const initialState: ConversationType[] = [
   {
     id: "",
     user: {
-      id: "",
-      username: "Global",
+      id: "global",
+      username: "Global Chat",
       profileImage: "",
     },
   },

@@ -1,9 +1,22 @@
 {
     "client": "Thunder Client",
     "collectionName": "NativeChat backend",
-    "dateExported": "2023-09-16T14:20:59.440Z",
+    "dateExported": "2024-01-11T12:57:34.940Z",
     "version": "1.1",
     "folders": [
+        {
+            "_id": "0b7e0d96-963a-40b6-8ebd-6d5bcda31e6e",
+            "name": "Messages request",
+            "containerId": "",
+            "created": "2024-01-03T12:37:28.676Z",
+            "sortNum": 5000,
+            "settings": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": "{{accessToken}}"
+                }
+            }
+        },
         {
             "_id": "bad7676a-e8c2-48a6-b966-1bbeba660922",
             "name": "Auth Requests",
@@ -40,20 +53,6 @@
     ],
     "requests": [
         {
-            "_id": "90ba2e2c-209f-40e8-9bb5-0b2dbafedf13",
-            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
-            "containerId": "",
-            "name": "Base GET for connection check",
-            "url": "/",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-09-14T11:23:54.096Z",
-            "modified": "2023-09-14T11:26:51.440Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
             "_id": "9b8ba4a6-cd45-41b8-b158-6e14abb73896",
             "colId": "54518590-2730-40ae-ab41-dac179da22d8",
             "containerId": "bad7676a-e8c2-48a6-b966-1bbeba660922",
@@ -62,12 +61,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-09-14T11:27:37.280Z",
-            "modified": "2023-09-14T18:21:25.221Z",
+            "modified": "2023-09-18T20:29:49.623Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"tempuser\",\n  \"password\": \"temppass\"\n}",
+                "raw": "{\n  \"username\": \"sampleuser\",\n  \"password\": \"samplepass\"\n}",
                 "form": []
             },
             "tests": [
@@ -159,18 +158,19 @@
             "colId": "54518590-2730-40ae-ab41-dac179da22d8",
             "containerId": "0bcfc7a3-08df-482c-9545-1f35809f2bc1",
             "name": "Find users by username",
-            "url": "/user/getUsers",
+            "url": "/users/getUsers?username=ra",
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-09-14T11:46:24.207Z",
-            "modified": "2023-09-14T11:49:40.117Z",
+            "modified": "2023-09-27T11:13:37.261Z",
             "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\": \"ra\"\n}",
-                "form": []
-            },
+            "params": [
+                {
+                    "name": "username",
+                    "value": "ra",
+                    "isPath": false
+                }
+            ],
             "tests": []
         },
         {
@@ -182,12 +182,12 @@
             "method": "POST",
             "sortNum": 60000,
             "created": "2023-09-14T15:07:17.910Z",
-            "modified": "2023-09-14T18:20:37.439Z",
+            "modified": "2023-09-25T18:59:04.227Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"conversationUserID\": \"3fdaf782-fd13-407e-b9ee-c73114ce5b4a\"\n}",
+                "raw": "{\n  \"conversationUserID\": \"66841924-95c3-4ff3-b3a0-f7795d40ac9b\"\n}",
                 "form": []
             },
             "tests": []
@@ -215,12 +215,12 @@
             "method": "DELETE",
             "sortNum": 80000,
             "created": "2023-09-14T18:32:04.656Z",
-            "modified": "2023-09-14T18:44:02.599Z",
+            "modified": "2023-09-23T04:49:51.800Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"conversationID\": \"d443c728-1d35-4e50-b376-2544de3c0ea2\"\n}",
+                "raw": "{\n  \"conversationID\": \"9dc1ad2b-4450-4252-be8c-08d89ab40eb9\"\n}",
                 "form": []
             },
             "tests": []
@@ -250,6 +250,79 @@
                     "value": "{{accessToken}}"
                 }
             ]
+        },
+        {
+            "_id": "c8ea1114-e16b-4eb4-b758-7ea4975ba74d",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "0b7e0d96-963a-40b6-8ebd-6d5bcda31e6e",
+            "name": "GET all conversation messages",
+            "url": "/messages",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-01-07T12:30:01.195Z",
+            "modified": "2024-01-07T12:34:19.925Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"conversationID\": \"591464a9-86fc-4120-b263-78db920d29bf\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fee7515b-38c3-4b39-be73-7c6ceaef20be",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "0b7e0d96-963a-40b6-8ebd-6d5bcda31e6e",
+            "name": "Add new message",
+            "url": "/messages",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-01-07T14:22:43.439Z",
+            "modified": "2024-01-11T12:41:01.116Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"conversationID\": \"591464a9-86fc-4120-b263-78db920d29bf\",\n  \"message\": \"Message to delete\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.id",
+                    "action": "setto",
+                    "value": "{{recentMessageID}}"
+                }
+            ]
+        },
+        {
+            "_id": "1a556ea1-d6d9-4bfb-82f9-da58ff4504a5",
+            "colId": "54518590-2730-40ae-ab41-dac179da22d8",
+            "containerId": "0b7e0d96-963a-40b6-8ebd-6d5bcda31e6e",
+            "name": "Delete message",
+            "url": "/messages",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2024-01-07T14:24:17.978Z",
+            "modified": "2024-01-11T12:54:41.407Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"messageID\": \"{{recentMessageID}}\"\n}",
+                "form": []
+            },
+            "tests": [],
+            "postReq": {
+                "inlineScripts": [
+                    {
+                        "script": [
+                            "tc.setVar(\"recentMessageID\", \"\")"
+                        ]
+                    }
+                ]
+            }
         }
     ],
     "settings": {

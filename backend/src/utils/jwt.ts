@@ -4,7 +4,7 @@ import { sign, verify } from "jsonwebtoken";
 // Types
 import { CustomError, ExtendedJwtPayload } from "../types";
 
-const generateAccessToken = (payload: { id: string }) => {
+const generateAccessToken = (payload: { id: string; username: string }) => {
   const secret = process.env.JWT_ACCESS_TOKEN_SECRET || "access_secret";
   return sign(payload, secret, { expiresIn: "15m" });
 };

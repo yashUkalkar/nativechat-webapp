@@ -15,11 +15,11 @@ NativeChat is a web chat application which can break the translation barrier for
 
 ### Features :sparkler: -
 
-- Authentication **(username, password)**
-- Basic chat functionality **_(to be implemented)_**
-- Integrated Postgresql database for storing conversations and messages **_(to be implemented)_**
-- Translate any message to your language **_(to be implemented)_**
-- Auto-translate feature for hassle free translation **_(to be implemented)_**
+- [x] Authentication **(username, password)**
+- [ ] Basic chat functionality **_(backend implemented)_**
+- [ ] Integrated Postgresql database for storing conversations and messages **_(backend implemented)_**
+- [ ] Translate any message to your language **_(to be implemented)_**
+- [ ] Auto-translate feature for hassle free translation **_(to be implemented)_**
 
 <a href="#" style="color:#cc1d5e">Go to top 👆🏻</a>
 

@@ -1,10 +1,7 @@
 // Types
 import { Socket } from "socket.io";
 
-import {
-  addUserToLiveList,
-  removeUserFromLiveList,
-} from "../LiveConnectionsList";
+import { removeUserFromLiveList } from "../LiveConnectionsList";
 
 const registerConnectionEvents = (socket: Socket) => {
   socket.on("disconnect", () => {

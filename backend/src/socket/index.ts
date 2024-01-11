@@ -7,6 +7,7 @@ import { allowedOrigins } from "../config/cors.config";
 
 // Event handlers
 import { registerConnectionEvents } from "./eventHandlers/connectionEventsHandlers";
+import { registerMessagingEvents } from "./eventHandlers/messagingEventsHandler";
 
 // Middlewares
 import { authenticateSocketConnection } from "../middlewares/authenticateSocketConnection";
@@ -47,6 +48,7 @@ const socketInit = (httpServer: httpServer) => {
 
 const registerSocketEvents = (socket: Socket) => {
   registerConnectionEvents(socket);
+  registerMessagingEvents(socket);
 };
 
 export { socketInit };

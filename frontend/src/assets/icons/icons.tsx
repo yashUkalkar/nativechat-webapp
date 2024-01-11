@@ -17,6 +17,7 @@ import {
   faAdd,
   faGlobe,
   faMagnifyingGlass,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
 const UserIcon = (props: Omit<FontAwesomeIconProps, "icon">) => (
@@ -52,6 +53,9 @@ const GlobeIcon = (props: Omit<FontAwesomeIconProps, "icon">) => (
 const SearchIcon = (props: Omit<FontAwesomeIconProps, "icon">) => (
   <FontAwesomeIcon icon={faMagnifyingGlass} {...props} />
 );
+const SendIcon = (props: Omit<FontAwesomeIconProps, "icon">) => (
+  <FontAwesomeIcon icon={faPaperPlane} {...props} />
+);
 
 export {
   UserIcon,
@@ -65,4 +69,5 @@ export {
   AddIcon,
   GlobeIcon,
   SearchIcon,
+  SendIcon,
 };

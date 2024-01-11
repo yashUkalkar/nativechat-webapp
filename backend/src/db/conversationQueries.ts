@@ -2,7 +2,7 @@
 import { prisma } from "./prisma";
 
 // Types
-import { ConversationType, ConversationsList, CustomError } from "../types";
+import { ConversationsList, CustomError } from "../types";
 
 const getUserConversations = async (id: string) => {
   try {

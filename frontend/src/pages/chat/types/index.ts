@@ -21,8 +21,24 @@ type CurrentConversationSlice = {
   clearCurrentConversation: () => void;
 };
 
+type MessageType = {
+  id: string;
+  conversationID: string;
+  senderID: string;
+  content: string;
+  sentAt: Date;
+};
+
+type CurrentConverstionMessagesSliceType = {
+  messagesList: MessageType[];
+  setMessages: (messages: MessageType[]) => void;
+  addNewMessage: (message: MessageType) => void;
+  clearMessages: () => void;
+};
+
 type ConversationStoreCombinedSliceType = ConversationsSliceType &
-  CurrentConversationSlice;
+  CurrentConversationSlice &
+  CurrentConverstionMessagesSliceType;
 
 export type {
   ConversationType,
@@ -30,4 +46,6 @@ export type {
   ConversationsSliceType,
   ConversationStoreCombinedSliceType,
   CurrentConversationSlice,
+  MessageType,
+  CurrentConverstionMessagesSliceType,
 };

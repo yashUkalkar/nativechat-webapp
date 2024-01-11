@@ -30,6 +30,7 @@ const authenticateSocketConnection = (
         socket.data = {
           user: {
             id: (<ExtendedJwtPayload>decoded).id,
+            username: (<ExtendedJwtPayload>decoded).username,
           },
         };
         return next();

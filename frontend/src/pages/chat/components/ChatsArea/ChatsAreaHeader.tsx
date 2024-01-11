@@ -14,8 +14,9 @@ const ChatsAreaHeader = () => {
   const [filterComponentType, setFilterComponentType] =
     useState<ConversationFilterType>(null);
 
+  //TODO: Change the username image div to profile view button
   return (
-    <div className="border-b-[1px] border-pink p-2 px-3 lg:px-2 flex items-center justify-between">
+    <div className="border-b-[1px] border-pink p-3 px-2 flex items-center justify-between">
       <p className="text-xl font-semibold">Conversations</p>
       <div className="flex items-center justify-between gap-5">
         <div
